@@ -3,7 +3,7 @@
 ## Expected Result
 
 ```console
-ld86@zion:~/Source/aoc-2015/01$ ghci Main.hs 
+$ ghci Main.hs 
 GHCi, version 8.10.4: https://www.haskell.org/ghc/  :? for help
 [1 of 1] Compiling Main             ( Main.hs, interpreted )
 Ok, one module loaded.
