@@ -32,7 +32,7 @@ parseGate line = getGate tokens
         getGate [lhs, "AND", rhs, "->", to] = Gate (And lhs rhs) to
         getGate [lhs, "OR", rhs, "->", to] = Gate (Or lhs rhs) to
 
-buildState gates = State M.empty (M.fromList operators)
+getState memory gates = State (M.fromList memory) (M.fromList operators)
     where
         operators = map (\(Gate operator to) -> (to, operator)) gates
 
@@ -80,10 +80,17 @@ eval state@(State memory gates) name | M.member name memory = state
 part1 l = M.findWithDefault (error "Cannot find a") "a" $ getMemory $ eval (state l) "a"
    where
         gates = map parseGate
-        state = buildState.gates
+        state = getState [].gates
+
+part2 l = M.findWithDefault (error "Cannot find a") "a" $ getMemory $ eval (state l) "a"
+   where
+        gates = map parseGate
+        state = getState [("b", 46065)].gates
+
 
 solve filename = do
     l <- lines <$> readFile filename
     printf "Part 1: %d\n" $ part1 l
+    printf "Part 2: %d\n" $ part2 l
 
 main = solve "input.txt"
